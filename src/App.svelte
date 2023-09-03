@@ -1,20 +1,35 @@
 <script>
-	import { onMount } from 'svelte';
+	import { onMount, onDestroy } from 'svelte';
 	import { db } from './firebase.js';
-	import { get, ref } from 'firebase/database';
-  
+	import { ref, onValue, off } from 'firebase/database';
+	import ScheduleComponent from './components/Schedule.svelte';
+	
+	let fights = [];
+	
 	onMount(() => {
 	  const fightsRef = ref(db, 'fights');
-	  get(fightsRef)
-		.then((snapshot) => {
-		  if (snapshot.exists()) {
-			console.log(snapshot.val());
-		  } else {
-			console.log("No data available");
-		  }
-		})
-		.catch((error) => {
-		  console.error(error);
-		});
+	  
+	  // Listen for changes in the database
+	  const unsubscribe = onValue(fightsRef, (snapshot) => {
+		if (snapshot.exists()) {
+		  // Reassign the fights variable to trigger Svelte's reactivity
+		  fights = [...snapshot.val()];
+		  console.log(fights);
+		} else {
+		  console.log("No data available");
+		}
+	  }, (error) => {
+		console.error(error);
+	  });
+  
+	  // Cleanup function to remove the listener when the component is destroyed
+	  return () => {
+		off(fightsRef, 'value', unsubscribe);
+	  };
 	});
-</script>
+  </script>
+  
+  {#each fights as fightData}
+	<ScheduleComponent {fightData} />
+  {/each}
+  
