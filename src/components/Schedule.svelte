@@ -13,13 +13,20 @@ $: {
     }
 }
 
+function capitalizeFirstLetter(word) {
+    return word.charAt(0).toUpperCase() + word.slice(1).toLowerCase();
+}
+
 function formatName(name) {
     const words = name.split(' ');
-    if (words.length > 2) {
-        return words.slice(0, 2).join(' ') + ' ' + words.slice(2).map(w => w[0]).join(' ');
+    const capitalizedWords = words.map(capitalizeFirstLetter);
+
+    if (capitalizedWords.length > 2) {
+        return capitalizedWords.slice(0, 2).join(' ') + ' ' + capitalizedWords.slice(2).map(w => w[0]).join(' ');
     }
-    return words.join(' ');
+    return capitalizedWords.join(' ');
 }
+
 </script>
   
 <style>
