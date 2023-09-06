@@ -32,13 +32,21 @@ function formatName(name) {
 <style>
 .fight-container {
     display: grid;
-    grid-template-columns: auto 1fr auto 1fr;
+    grid-template-columns: 1fr 5fr 1fr 5fr;
     align-items: center;
     padding: 10px;
     border: 1px solid #ccc;
     border-radius: 5px;
 }
+.completed {
+  background-color: rgb(223, 223, 223);
+}
 
+
+.atlethe {
+    display: grid;
+    grid-template-columns: 1fr 3fr;
+}
 .number {
     padding: 0 10px;
 }
@@ -58,16 +66,16 @@ function formatName(name) {
 </style>
 
 {#if fighter1 && fighter2}
-<div class="fight-container">
+<div class="fight-container" class:completed={fightData.isCompleted}>
     <div class="number">{fightData.fightNumber}</div>
-    <div class="red">
-        <span class="fighter">{fighter1}</span>
+    <div class="atlethe">
         <span class="team">({team1})</span>
+        <span class="fighter">{fighter1}</span>
     </div>
     <div class="vs">VS</div>
-    <div class="blue">
-        <span class="fighter">{fighter2}</span>
+    <div class="atlethe">
         <span class="team">({team2})</span>
+        <span class="fighter">{fighter2}</span>
     </div>
 </div>
 {/if}

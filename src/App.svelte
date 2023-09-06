@@ -30,6 +30,7 @@
   </script>
   
   {#each fights as fightData}
+  
 	<ScheduleComponent {fightData} />
   {/each}
   
