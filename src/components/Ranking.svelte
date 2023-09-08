@@ -13,6 +13,17 @@
   }
 </script>
 
+<style>
+  th, td {
+    padding: 10px;
+  }
+
+  .rank {
+    text-align: center;
+  }
+
+</style>
+
 <div>
   <h2>Ranking</h2>
   {#each rankingKeys as key}
@@ -20,15 +31,15 @@
     <table border="1">
       <thead>
         <tr>
-          <th>Rank</th>
-          <th>Name</th>
-          <th>Score</th>
+          <th>Juara</th>
+          <th>Nama</th>
+          <th>Asal</th>
         </tr>
       </thead>
       <tbody>
         {#each getTopFour(rankings[key]) as item}
           <tr>
-            <td>{item.rank}</td>
+            <td class="rank">{item.rank}</td>
             <td>{item.fighter.fullName}</td>
             <td>{item.fighter.teamName}</td>
           </tr>
