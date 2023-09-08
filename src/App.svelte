@@ -1,18 +1,21 @@
 <script>
-	import { onMount, onDestroy } from 'svelte';
+	import { onMount } from 'svelte';
 	import { db } from './firebase.js';
 	import { ref, onValue, off } from 'firebase/database';
 	import ScheduleComponent from './components/Schedule.svelte';
-	
+	import Ranking from './components/Ranking.svelte';
+  
 	let fights = [];
-	
+	let rankings = {};
+	let selectedTab = 'ranking'; // Default selected tab
+  
 	onMount(() => {
 	  const fightsRef = ref(db, 'fights');
-	  
-	  // Listen for changes in the database
-	  const unsubscribe = onValue(fightsRef, (snapshot) => {
+	  const rankingsRef = ref(db, 'ranking');
+  
+	  // Listen for changes in the fights database
+	  const unsubscribeFights = onValue(fightsRef, (snapshot) => {
 		if (snapshot.exists()) {
-		  // Reassign the fights variable to trigger Svelte's reactivity
 		  fights = [...snapshot.val()];
 		  console.log(fights);
 		} else {
@@ -22,15 +25,39 @@
 		console.error(error);
 	  });
   
-	  // Cleanup function to remove the listener when the component is destroyed
+	  // Listen for changes in the rankings database
+	  const unsubscribeRankings = onValue(rankingsRef, (snapshot) => {
+		if (snapshot.exists()) {
+			console.log(snapshot.val())
+		  rankings = snapshot.val();
+		  console.log(rankings);
+		} else {
+		  console.log("No ranking data available");
+		}
+	  }, (error) => {
+		console.error(error);
+	  });
+  
+	  // Cleanup function to remove the listeners when the component is destroyed
 	  return () => {
-		off(fightsRef, 'value', unsubscribe);
+		off(fightsRef, 'value', unsubscribeFights);
+		off(rankingsRef, 'value', unsubscribeRankings);
 	  };
 	});
   </script>
   
-  {#each fights as fightData}
+  <!-- Tab buttons -->
+  <div>
+	<button on:click={() => selectedTab = 'fights'}>Fights</button>
+	<button on:click={() => selectedTab = 'ranking'}>Ranking</button>
+  </div>
   
-	<ScheduleComponent {fightData} />
-  {/each}
+  <!-- Tab content -->
+  {#if selectedTab === 'fights'}
+	{#each fights as fightData}
+	  <ScheduleComponent {fightData} />
+	{/each}
+  {:else if selectedTab === 'ranking'}
+	<Ranking {rankings} />
+  {/if}
   
