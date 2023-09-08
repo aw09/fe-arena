@@ -63,6 +63,9 @@
         text-align: center;
         padding: 0 auto;
     }
+    .fight-wrapper {
+        padding-bottom: 120px; /* Adjust this value as needed */
+    }
     </style>
     
 <!-- Date Tabs -->
@@ -78,19 +81,21 @@
 </div>
 
 <!-- Fights -->
-{#if selectedDate && groupedFights[selectedDate]}
+<div class="fight-wrapper">
+    {#if selectedDate && groupedFights[selectedDate]}
     {#each groupedFights[selectedDate] as fightData}
-        <div class="fight-container" class:completed={fightData.isCompleted} class:highlight={fightData.team1AlternateName === selectedTeam || fightData.team2AlternateName === selectedTeam}>
-            <div class="number">{fightData.fightNumber}</div>
-            <div class="atlethe">
-                <span class="team" on:click={() => selectTeam(fightData.team1AlternateName)}>({fightData.team1AlternateName})</span>
-                <span class="fighter">{formatName(fightData.fighter1FullName)}</span>
-            </div>
-            <div class="vs">VS</div>
-            <div class="atlethe">
-                <span class="team" on:click={() => selectTeam(fightData.team2AlternateName)}>({fightData.team2AlternateName})</span>
-                <span class="fighter">{formatName(fightData.fighter2FullName)}</span>
-            </div>
+    <div class="fight-container" class:completed={fightData.isCompleted} class:highlight={fightData.team1AlternateName === selectedTeam || fightData.team2AlternateName === selectedTeam}>
+        <div class="number">{fightData.fightNumber}</div>
+        <div class="atlethe">
+            <span class="team" on:click={() => selectTeam(fightData.team1AlternateName)}>({fightData.team1AlternateName})</span>
+            <span class="fighter">{formatName(fightData.fighter1FullName)}</span>
         </div>
+        <div class="vs">VS</div>
+        <div class="atlethe">
+            <span class="team" on:click={() => selectTeam(fightData.team2AlternateName)}>({fightData.team2AlternateName})</span>
+            <span class="fighter">{formatName(fightData.fighter2FullName)}</span>
+        </div>
+    </div>
     {/each}
-{/if}
+    {/if}
+</div>
