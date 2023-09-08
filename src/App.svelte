@@ -7,7 +7,7 @@
   
 	let fights = [];
 	let rankings = {};
-	let selectedTab = 'ranking'; // Default selected tab
+	let selectedTab = 'fight'; // Default selected tab
   
 	onMount(() => {
 	  const fightsRef = ref(db, 'fights');
@@ -46,18 +46,31 @@
 	});
   </script>
   
-  <!-- Tab buttons -->
-  <div>
-	<button on:click={() => selectedTab = 'fights'}>Fights</button>
+ 
+<style>
+	/* Style for the floating tab buttons */
+	.tab-buttons {
+	  position: fixed;
+	  bottom: 0;
+	  left: 0;
+	  width: 100%;  /* Full width */
+	  background-color: #fff;
+	  display: flex;
+	  justify-content: space-around;  /* Distribute buttons evenly */
+	  padding: 10px;
+	  box-shadow: 0px -2px 5px rgba(0, 0, 0, 0.1);
+	}
+  </style>
+  
+  <!-- Floating Tab buttons -->
+  <div class="tab-buttons">
+	<button on:click={() => selectedTab = 'fight'}>Fights</button>
 	<button on:click={() => selectedTab = 'ranking'}>Ranking</button>
   </div>
   
   <!-- Tab content -->
-  {#if selectedTab === 'fights'}
-	{#each fights as fightData}
-	  <ScheduleComponent {fightData} />
-	{/each}
+  {#if selectedTab === 'fight'}
+	<ScheduleComponent {fights} />
   {:else if selectedTab === 'ranking'}
 	<Ranking {rankings} />
   {/if}
-  
