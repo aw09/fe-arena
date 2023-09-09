@@ -94,4 +94,4 @@
     }
 }
 th.svelte-1e9f69,td.svelte-1e9f69{padding:10px}.rank.svelte-1e9f69{text-align:center}
-.tab-buttons.svelte-un9ybo{position:fixed;bottom:0;left:0;width:100%;background-color:#fff;display:flex;justify-content:space-around;padding:10px;box-shadow:0px -2px 5px rgba(0, 0, 0, 0.1)}.last-updated.svelte-un9ybo{position:fixed;bottom:50px;left:0;width:100%;text-align:center;background-color:rgba(255, 255, 255, 0.8);padding:5px}
+.tab-buttons.svelte-je8yy0.svelte-je8yy0{position:fixed;bottom:0;left:0;width:100%;background-color:#fff;display:flex;height:fit-content}.tab-buttons.svelte-je8yy0>.svelte-je8yy0{flex-grow:1;text-align:center}.last-updated.svelte-je8yy0.svelte-je8yy0{position:fixed;bottom:40px;left:0;width:100%;text-align:center;background-color:rgba(255, 255, 255, 0.8);padding:5px}
