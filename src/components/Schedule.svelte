@@ -39,16 +39,18 @@
     }
 </script>
 
-<!-- Date Tabs -->
-<div>
-    {#each Object.keys(groupedFights) as date}
-        <button on:click={() => (selectedDate = date)}>{date}</button>
-    {/each}
-</div>
+<div class="fixed-top">
+    <!-- Team Filter -->
+    <div class="team-filter">
+        <input type="text" bind:value={selectedTeam} placeholder="Filter by team name" />
+    </div>
 
-<!-- Team Filter -->
-<div>
-    <input type="text" bind:value={selectedTeam} placeholder="Filter by team name" />
+    <!-- Date Tabs -->
+    <div class="date-tabs">
+        {#each Object.keys(groupedFights) as date}
+            <button on:click={() => (selectedDate = date)}>{date}</button>
+        {/each}
+    </div>
 </div>
 
 <!-- Fights -->
@@ -57,7 +59,7 @@
         {#each groupedFights[selectedDate] as fightData}
             <div
                 class="fight-container"
-                class:stroke={fightData.fighter1FullName == '' || fightData.fighter2FullName == ''}
+                class:strikethrough={fightData.fighter1FullName == '' || fightData.fighter2FullName == ''}
                 class:completed={fightData.isCompleted ||
                     fightData.fighter1FullName == '' ||
                     fightData.fighter2FullName == ''}
@@ -69,7 +71,7 @@
                     <span class="team" on:click={() => selectTeam(fightData.team1AlternateName)}
                         >({fightData.team1AlternateName})</span
                     >
-                    <span class="fighter {fightData.winnerFighter !== fightData.fighter1Id ? 'stroke' : ''}"
+                    <span class="fighter {fightData.winnerFighter !== fightData.fighter1Id ? 'lose' : ''}"
                         >{formatName(fightData.fighter1FullName)}</span
                     >
                 </div>
@@ -78,7 +80,7 @@
                     <span class="team" on:click={() => selectTeam(fightData.team2AlternateName)}
                         >({fightData.team2AlternateName})</span
                     >
-                    <span class="fighter {fightData.winnerFighter !== fightData.fighter2Id ? 'stroke' : ''}"
+                    <span class="fighter {fightData.winnerFighter !== fightData.fighter2Id ? 'lose' : ''}"
                         >{formatName(fightData.fighter2FullName)}</span
                     >
                 </div>
