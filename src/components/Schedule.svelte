@@ -59,20 +59,25 @@
         {#each groupedFights[selectedDate] as fightData}
             <div
                 class="fight-container"
-                class:strikethrough={fightData.fighter1FullName == '' || fightData.fighter2FullName == ''}
+                class:strikethrough={fightData.fighter1FullName == '' &&
+                    fightData.fighter2FullName == '' &&
+                    fightData.round.includes('repechage')}
                 class:completed={fightData.isCompleted ||
-                    fightData.fighter1FullName == '' ||
-                    fightData.fighter2FullName == ''}
-                class:highlight={(fightData.fighter1FullName != '' && fightData.team1AlternateName === selectedTeam) ||
-                    (fightData.fighter2FullName != '' && fightData.team2AlternateName === selectedTeam)}
+                    (fightData.fighter1FullName == '' && fightData.fighter2FullName == '')}
+                class:highlight={(fightData.fighter1FullName != '' &&
+                    fightData.team1AlternateName.toLowerCase() === selectedTeam.toLowerCase()) ||
+                    (fightData.fighter2FullName != '' &&
+                        fightData.team2AlternateName.toLowerCase() === selectedTeam.toLowerCase())}
             >
                 <div class="number">{fightData.fightNumber}</div>
                 <div class="atlethe">
                     <span class="team" on:click={() => selectTeam(fightData.team1AlternateName)}
                         >({fightData.team1AlternateName})</span
                     >
-                    <span class="fighter {fightData.winnerFighter !== fightData.fighter1Id ? 'lose' : ''}"
-                        >{formatName(fightData.fighter1FullName)}</span
+                    <span
+                        class="fighter {fightData.winnerFighter && fightData.winnerFighter !== fightData.fighter1Id
+                            ? 'lose'
+                            : ''}">{formatName(fightData.fighter1FullName)}</span
                     >
                 </div>
                 <div class="vs">VS</div>
@@ -80,8 +85,10 @@
                     <span class="team" on:click={() => selectTeam(fightData.team2AlternateName)}
                         >({fightData.team2AlternateName})</span
                     >
-                    <span class="fighter {fightData.winnerFighter !== fightData.fighter2Id ? 'lose' : ''}"
-                        >{formatName(fightData.fighter2FullName)}</span
+                    <span
+                        class="fighter {fightData.winnerFighter && fightData.winnerFighter !== fightData.fighter2Id
+                            ? 'lose'
+                            : ''}">{formatName(fightData.fighter2FullName)}</span
                     >
                 </div>
             </div>

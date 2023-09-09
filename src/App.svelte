@@ -31,7 +31,7 @@
     }
 
     onMount(() => {
-        const fightsRef = ref(db, 'fights')
+        const fightsRef = ref(db, 'fightsCompressed')
         const rankingsRef = ref(db, 'ranking')
         const lastUpdatedRef = ref(db, 'lastUpdated')
 
