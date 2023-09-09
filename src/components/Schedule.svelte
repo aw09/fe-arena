@@ -62,8 +62,7 @@
                 class:strikethrough={fightData.fighter1FullName == '' &&
                     fightData.fighter2FullName == '' &&
                     fightData.round.includes('repechage')}
-                class:completed={fightData.isCompleted ||
-                    (fightData.fighter1FullName == '' && fightData.fighter2FullName == '')}
+                class:completed={fightData.isCompleted}
                 class:highlight={(fightData.fighter1FullName != '' &&
                     fightData.team1AlternateName.toLowerCase() === selectedTeam.toLowerCase()) ||
                     (fightData.fighter2FullName != '' &&
