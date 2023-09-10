@@ -3,9 +3,14 @@
 
     export let fights = []
 
-    let selectedTeam = '' // Variable to keep track of the selected team
+    let selectedTeam = ''
     let groupedFights = {}
-    let selectedDate = ''
+    let today = new Date()
+    let yyyy = today.getFullYear()
+    let mm = String(today.getMonth() + 1).padStart(2, '0')
+    let dd = String(today.getDate()).padStart(2, '0')
+
+    let selectedDate = `${yyyy}-${mm}-${dd}`
 
     $: {
         groupedFights = fights.reduce((acc, fight) => {
@@ -16,7 +21,10 @@
             acc[date].push(fight)
             return acc
         }, {})
-        selectedDate = Object.keys(groupedFights)[0] || ''
+
+        if (Object.keys(groupedFights).length > 0 && !Object.keys(groupedFights).includes(selectedDate)) {
+            selectedDate = Object.keys(groupedFights)[0]
+        }
     }
 
     function capitalizeFirstLetter(word) {
