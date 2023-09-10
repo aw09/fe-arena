@@ -13,7 +13,7 @@
     }
 </script>
 
-<div>
+<div class="ranking-wrapper">
     <h2>Ranking</h2>
     {#each rankingKeys as key}
         <h3>{key}</h3>
@@ -46,5 +46,8 @@
 
     .rank {
         text-align: center;
+    }
+    .ranking-wrapper {
+        padding-bottom: 150px;
     }
 </style>
