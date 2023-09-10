@@ -59,10 +59,8 @@
         {#each groupedFights[selectedDate] as fightData}
             <div
                 class="fight-container"
-                class:strikethrough={fightData.fighter1FullName == '' &&
-                    fightData.fighter2FullName == '' &&
-                    fightData.round.includes('repechage')}
-                class:completed={fightData.isCompleted}
+                class:strikethrough={fightData.canceled && fightData.canceled != ''}
+                class:completed={fightData.isCompleted || (fightData.canceled && fightData.canceled != '')}
                 class:highlight={(fightData.fighter1FullName != '' &&
                     fightData.team1AlternateName.toLowerCase() === selectedTeam.toLowerCase()) ||
                     (fightData.fighter2FullName != '' &&
