@@ -69,6 +69,12 @@
                         fightData.team2AlternateName.toLowerCase() === selectedTeam.toLowerCase())}
             >
                 <div class="number">{fightData.fightNumber}</div>
+                <div class="category">
+                    <p>{fightData.round}</p>
+                    <p class="weight-category">
+                        {fightData.weightCategoryAlternateName.replace(' - ', '\n').replace(' kg', '')}
+                    </p>
+                </div>
                 <div class="atlethe">
                     <span class="team" on:click={() => selectTeam(fightData.team1AlternateName)}
                         >({fightData.team1AlternateName})</span
