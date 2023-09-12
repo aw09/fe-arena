@@ -1,5 +1,6 @@
 <script>
     import './schedule.css'
+    import { formatName } from '../util.js'
 
     export let fights = []
 
@@ -25,21 +26,6 @@
         if (Object.keys(groupedFights).length > 0 && !Object.keys(groupedFights).includes(selectedDate)) {
             selectedDate = Object.keys(groupedFights)[0]
         }
-    }
-
-    function capitalizeFirstLetter(word) {
-        return word.charAt(0).toUpperCase() + word.slice(1).toLowerCase()
-    }
-
-    function formatName(name) {
-        const words = name.split(' ')
-        const capitalizedWords = words.map((word, index) => {
-            if (index > 1) {
-                return word.charAt(0).toUpperCase() + '.'
-            }
-            return capitalizeFirstLetter(word)
-        })
-        return capitalizedWords.join(' ')
     }
 
     function selectTeam(team) {
@@ -81,7 +67,7 @@
                         {fightData.weightCategoryAlternateName.replace(' - ', '\n').replace(' kg', '')}
                     </p>
                 </div>
-                <div class="atlethe">
+                <div class="atlethe red">
                     <span class="team" on:click={() => selectTeam(fightData.team1AlternateName)}
                         >({fightData.team1AlternateName})</span
                     >
@@ -92,7 +78,7 @@
                     >
                 </div>
                 <div class="vs">VS</div>
-                <div class="atlethe">
+                <div class="atlethe blue">
                     <span class="team" on:click={() => selectTeam(fightData.team2AlternateName)}
                         >({fightData.team2AlternateName})</span
                     >
