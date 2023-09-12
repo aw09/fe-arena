@@ -14,7 +14,9 @@ export const formatName = (name, limit = null) => {
         return capitalizedWords.slice(0, limit).join(' ')
 
     }
-    else capitalizedWords.join(' ')
+    else {
+        return capitalizedWords.join(' ')
+    }
 }
 
 export const pathImageFighter = (fighter, team, weight) => {
